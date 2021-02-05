@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './random-planet.css';
 import Spinner from "../spinner";
 import SwapiService from "../../services/swapi-service";
-import ErrorIndicator from "../app/error-indicator";
+import ErrorIndicator from "../error-indicator";
 export default class RandomPlanet extends Component {
 
   swapiService = new SwapiService();

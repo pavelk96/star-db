@@ -10,6 +10,7 @@ export default class PersonDetails extends Component {
 
   state ={
     person: null,
+    loading: true
   };
 
   componentDidMount() {
@@ -17,58 +18,75 @@ export default class PersonDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId === prevProps.personId) {
+    if (this.props.personId != prevProps.personId) {
       this.updatePerson();
     }
   }
 
   updatePerson() {
-    const { personId} = this.props;
+    const {personId} = this.props;
     if (!personId) {
       return;
     }
-
+    this.setState({loading: true})
     this.swapiServce
         .getPerson(personId)
         .then((person) => {
-          this.setState( {person} );
-        });
+          this.setState( {loading: false, person} );
+        })
+        .catch(this.onError);
+
   }
+
+  onError = (err) => {
+    this.setState({
+      error: true,
+      loading: false
+    });
+  };
+
 
 
   render() {
+    const {person, loading} = this.state;
 
-
-    if (!this.state.person) {
+    if (!person) {
       return <span>Select a person from a list</span>;
     }
-
-
-    const { id, name, gender, birthYear, eyeColor } = this.state.person;
-
+    const content = loading ? <Spinner/> : <PersonView person={person} />;
     return (
       <div className="person-details card">
-        <img className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
-
-        <div className="card-body">
-          <h4>{name}</h4>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <span className="term">Gender</span>
-              <span>{gender}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Birth Year</span>
-              <span>{birthYear}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Eye Color</span>
-              <span>{eyeColor}</span>
-            </li>
-          </ul>
-        </div>
+        {content}
       </div>
     )
   }
+}
+
+const PersonView = ({person}) => {
+  const { id, name, gender, birthYear, eyeColor } = person;
+  console.log(person);
+  return (
+    <>
+      <img className="person-image"
+       src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+
+  <div className="card-body">
+    <h4>{name}</h4>
+    <ul className="list-group list-group-flush">
+      <li className="list-group-item">
+        <span className="term">Gender</span>
+        <span>{gender}</span>
+      </li>
+      <li className="list-group-item">
+        <span className="term">Birth Year</span>
+        <span>{birthYear}</span>
+      </li>
+      <li className="list-group-item">
+        <span className="term">Eye Color</span>
+        <span>{eyeColor}</span>
+      </li>
+    </ul>
+  </div>
+    </>
+)
 }

@@ -35,9 +35,9 @@ jobs:
       - name: Build shell
         env:
           VITE_BASE: /star-db/
-          VITE_REMOTE_PEOPLE: /star-db/people/assets/remoteEntry.js
-          VITE_REMOTE_PLANETS: /star-db/planets/assets/remoteEntry.js
-          VITE_REMOTE_STARSHIPS: /star-db/starships/assets/remoteEntry.js
+          VITE_REMOTE_PEOPLE: https://pavelk96.github.io/star-db/people/assets/remoteEntry.js?v=${{ github.run_id }}
+          VITE_REMOTE_PLANETS: https://pavelk96.github.io/star-db/planets/assets/remoteEntry.js?v=${{ github.run_id }}
+          VITE_REMOTE_STARSHIPS: https://pavelk96.github.io/star-db/starships/assets/remoteEntry.js?v=${{ github.run_id }}
         run: npm -w @star-db/shell run build
       - name: Prepare Pages artifact
         run: |

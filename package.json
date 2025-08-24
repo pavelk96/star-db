@@ -1,38 +1,22 @@
 {
   "name": "star-db",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.8",
-    "@testing-library/react": "^11.2.3",
-    "@testing-library/user-event": "^12.6.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
-  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev:shell": "npm -w @star-db/shell run dev",
+    "dev:people": "npm -w @star-db/people run dev",
+    "dev:planets": "npm -w @star-db/planets run dev",
+    "dev:starships": "npm -w @star-db/starships run dev",
+    "build": "npm run build -ws",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "preview": "npm -w @star-db/shell run preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
   }
 }

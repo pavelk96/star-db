@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main, gh-pages, deploy, feat/microfrontends-hooks-mui ]
+    branches: [ master, main, gh-pages, deploy, feat/microfrontends-hooks-mui ]
   workflow_dispatch:
 
 permissions:
@@ -51,7 +51,7 @@ jobs:
         with:
           path: ./out
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

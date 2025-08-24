@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main, gh-pages, deploy ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install
+        run: npm ci
+      - name: Build shared
+        run: npm -w @star-db/shared run build
+      - name: Build people
+        run: VITE_BASE=/people/ npm -w @star-db/people run build
+      - name: Build planets
+        run: VITE_BASE=/planets/ npm -w @star-db/planets run build
+      - name: Build starships
+        run: VITE_BASE=/starships/ npm -w @star-db/starships run build
+      - name: Build shell
+        env:
+          VITE_BASE: /
+          VITE_REMOTE_PEOPLE: /people/assets/remoteEntry.js
+          VITE_REMOTE_PLANETS: /planets/assets/remoteEntry.js
+          VITE_REMOTE_STARSHIPS: /starships/assets/remoteEntry.js
+        run: npm -w @star-db/shell run build
+      - name: Prepare Pages artifact
+        run: |
+          mkdir -p ./out
+          cp -r apps/shell/dist/* ./out/
+          mkdir -p ./out/people && cp -r apps/people/dist/* ./out/people/
+          mkdir -p ./out/planets && cp -r apps/planets/dist/* ./out/planets/
+          mkdir -p ./out/starships && cp -r apps/starships/dist/* ./out/starships/
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

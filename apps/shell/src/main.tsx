@@ -3,10 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme, StoreProvider, createRootStore } from "@star-db/shared";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import { AppShell } from "./shell";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   { path: "/", element: <AppShell /> },
 ]);
 

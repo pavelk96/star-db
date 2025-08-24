@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@star-db/shared";
-import { Alert, Avatar, Card, CardActionArea, CardContent, CircularProgress, Grid2 as Grid, List, ListItem, ListItemAvatar, ListItemText, Stack, Typography } from "@mui/material";
+import { Alert, Avatar, Card, CardActionArea, CardContent, CircularProgress, Stack, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import styles from "./people.module.scss";
 
 export const PeoplePage = observer(function PeoplePage() {

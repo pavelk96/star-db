@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@star-db/shared";
-import { Alert, Card, CardActionArea, CardContent, CircularProgress, Grid2 as Grid, Stack, Typography } from "@mui/material";
+import { Alert, Card, CardActionArea, CardContent, CircularProgress, Stack, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import styles from "./starships.module.scss";
 
 export const StarshipsPage = observer(function StarshipsPage() {

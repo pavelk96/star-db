@@ -20,5 +20,12 @@
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
     "framer-motion": "^11.11.17"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@types/react": "^18.3.5"
+  },
+  "peerDependencies": {
+    "react": ">=18"
   }
 }

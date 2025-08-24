@@ -4,10 +4,11 @@ import federation from "@originjs/vite-plugin-federation";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  const REMOTE_PEOPLE = env.VITE_REMOTE_PEOPLE || "http://localhost:5174/assets/remoteEntry.js";
-  const REMOTE_PLANETS = env.VITE_REMOTE_PLANETS || "http://localhost:5175/assets/remoteEntry.js";
-  const REMOTE_STARSHIPS = env.VITE_REMOTE_STARSHIPS || "http://localhost:5176/assets/remoteEntry.js";
   const base = env.VITE_BASE || "/";
+  const withBase = (u: string) => (u.startsWith("http") || u.startsWith("/") ? u : `${base.replace(/\/$/, "")}/${u}`);
+  const REMOTE_PEOPLE = withBase(env.VITE_REMOTE_PEOPLE || "http://localhost:5174/assets/remoteEntry.js");
+  const REMOTE_PLANETS = withBase(env.VITE_REMOTE_PLANETS || "http://localhost:5175/assets/remoteEntry.js");
+  const REMOTE_STARSHIPS = withBase(env.VITE_REMOTE_STARSHIPS || "http://localhost:5176/assets/remoteEntry.js");
 
   return {
     base,

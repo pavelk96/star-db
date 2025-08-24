@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main, gh-pages, deploy ]
+    branches: [ main, gh-pages, deploy, feat/microfrontends-hooks-mui ]
   workflow_dispatch:
 
 permissions:
@@ -27,17 +27,17 @@ jobs:
       - name: Build shared
         run: npm -w @star-db/shared run build
       - name: Build people
-        run: VITE_BASE=/people/ npm -w @star-db/people run build
+        run: VITE_BASE=/star-db/people/ npm -w @star-db/people run build
       - name: Build planets
-        run: VITE_BASE=/planets/ npm -w @star-db/planets run build
+        run: VITE_BASE=/star-db/planets/ npm -w @star-db/planets run build
       - name: Build starships
-        run: VITE_BASE=/starships/ npm -w @star-db/starships run build
+        run: VITE_BASE=/star-db/starships/ npm -w @star-db/starships run build
       - name: Build shell
         env:
-          VITE_BASE: /
-          VITE_REMOTE_PEOPLE: /people/assets/remoteEntry.js
-          VITE_REMOTE_PLANETS: /planets/assets/remoteEntry.js
-          VITE_REMOTE_STARSHIPS: /starships/assets/remoteEntry.js
+          VITE_BASE: /star-db/
+          VITE_REMOTE_PEOPLE: people/assets/remoteEntry.js
+          VITE_REMOTE_PLANETS: planets/assets/remoteEntry.js
+          VITE_REMOTE_STARSHIPS: starships/assets/remoteEntry.js
         run: npm -w @star-db/shell run build
       - name: Prepare Pages artifact
         run: |

@@ -2,14 +2,19 @@
   "name": "@star-db/shared",
   "version": "0.1.0",
   "private": false,
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
   "type": "module",
   "sideEffects": false,
   "scripts": {
     "build": "tsc -b",
     "dev": "tsc -w -b"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./package.json": "./package.json"
   },
   "dependencies": {
     "mobx": "^6.13.3",

@@ -7,7 +7,7 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import { AppShell } from "./shell";
 
 const router = createHashRouter([
-  { path: "/", element: <AppShell /> },
+  { path: "*", element: <AppShell /> },
 ]);
 
 const store = createRootStore();

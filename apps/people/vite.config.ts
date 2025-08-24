@@ -19,6 +19,12 @@ export default defineConfig(({ mode }) => {
         shared: {
           react: { singleton: true, requiredVersion: false },
           "react-dom": { singleton: true, requiredVersion: false },
+          "@emotion/react": { singleton: true, requiredVersion: false },
+          "@emotion/styled": { singleton: true, requiredVersion: false },
+          "@mui/material": { singleton: true, requiredVersion: false },
+          mobx: { singleton: true, requiredVersion: false },
+          "mobx-state-tree": { singleton: true, requiredVersion: false },
+          "mobx-react-lite": { singleton: true, requiredVersion: false },
           "@star-db/shared": { singleton: true, requiredVersion: false },
         },
       }),
